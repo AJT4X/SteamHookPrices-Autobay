@@ -24,7 +24,7 @@
                 if(!TARGET.some(t=>this._url.startsWith(t)))
                     return;
                 
-                console.log('th',this);
+               
                 let data;
 
                 try{
@@ -66,17 +66,17 @@
             }catch{
                 data = text;
             }
-            console.warn(clone);
+            
             const new_url = new URL(clone.url);
             url_split = new_url.pathname.split('/').filter(Boolean).pop();
-            console.log(url_split);
+            
 
             window.postMessage({
                 type:url_split,
                 url: clone.url,
                 payload: data
             })
-            console.log(data);
+            
         }catch(e) {
             console.log(e);
         }

@@ -1,0 +1,41 @@
+body{
+    background-color: black;
+    width: 500px;
+    height: 250px;
+    
+}
+
+.sh_t{
+    
+    color: white;
+    font-size: 20px;
+    font-family: serif;
+    font-weight: bold;
+    
+    
+}
+.sh_t_cont{
+    text-align: center;
+    justify-content: center; 
+}
+.sh_t_cont.dop_style{
+    gap:30px;
+    margin-top: 20px;
+}
+
+.sh_t_cont.dop_btn{
+    margin-top: 15px;
+    gap: 10px;
+    display: flex;
+}
+
+.btns_json{
+    color: white;
+    background-color: black;
+    border: 1px solid rgb(48, 48, 48);
+    border-radius: 5px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    padding: 5px 10px;
+    
+}

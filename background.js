@@ -16,6 +16,9 @@ db.version(1).stores({
 
 });
 
+async function all_db() {
+    return await db.items_info.toArray();
+}
 
 
 async function savePrice(items) {
@@ -32,9 +35,20 @@ async function savePrice(items) {
 
 chrome.runtime.onMessage.addListener((msg,sender, sendResponse)=>{
     console.log('work');
-    savePrice(msg.data)
-        .then(()=> sendResponse({ok: true}))
-        .catch(err=> sendResponse({ok: false, error: err}));
+    if (msg.type == 'itemordershistogram' || 
+        msg.type == 'priceoverview'){
+        savePrice(msg.data)
+            .then(()=> sendResponse({ok: true}))
+            .catch(err=> sendResponse({ok: false, error: err}));
+    }
+    if(msg.type=='db_get_all'){
+        console.log('popu');
+        all_db()
+        .then(data=> sendResponse({ok: true, data}))
+        .catch(err=> sendResponse({ok: false, error: err}))
+
+    }
+   
 
     return true;
 

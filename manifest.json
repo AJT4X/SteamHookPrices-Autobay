@@ -1,7 +1,7 @@
 {
     "manifest_version" : 3,
     "name" : "Steam Price Hook",
-    "version" : "1.0.0",
+    "version" : "1.0.1",
     "description" : "Extension for autonomous collection of item prices.",
     "action" : {
         "default_popup" : "popup.html"
@@ -21,7 +21,7 @@
         {
             "matches" : ["https://steamcommunity.com/*"],
             "js" : ["content.js"],
-            "css": ["styles.css"],
+            "css": ["css/styles.css"],
             "run_at" : "document_start"
         }
     ],

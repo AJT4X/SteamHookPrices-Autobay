@@ -46,11 +46,20 @@ async function start() {
     btns_viwers.innerText = '👁️';
 
     btns_save_json_file.addEventListener("click",()=>save_file(db_data));
-
+    btns_viwers.addEventListener("click",()=>big_window());
     btns.append(btns_save_json_file,btns_viwers);
     text_main_cont.append(steam_hook_text);
     document.body.append(text_main_cont,dop_main_info,btns);
 }
+function big_window(){
+    chrome.windows.create({
+        url: "dop_window.html",
+        type: 'popup',
+        width: 600,
+        height: 400
+    })
+}
+
 
 async function save_file(db_data){
     try{

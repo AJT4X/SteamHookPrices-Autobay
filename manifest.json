@@ -11,6 +11,9 @@
         "service_worker" : "background.js"
         
     },
+    "icons":
+    {"64": "icons/hook.png"},
+
     "permissions" : [
         "storage",
         "scripting",

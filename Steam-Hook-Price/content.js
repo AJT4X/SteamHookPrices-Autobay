@@ -64,7 +64,7 @@ class Alertik{
     }
 
     create(){
-        console.log('create');
+       
         const blocks_alert_info = document.createElement('div');
         blocks_alert_info.classList.add('alertis_hook');
         const alert_text = document.createElement('span');
@@ -85,7 +85,7 @@ class SM{
         this.type = type;
     }
     send(){
-        console.log('send');
+       
         chrome.runtime.sendMessage({
             type:this.type,
             data: this.data
@@ -93,3 +93,9 @@ class SM{
     return;
     }
 }
+
+
+document.addEventListener('DOMContentLoaded',()=>{
+    
+    new SM({},'send_server').send();
+});

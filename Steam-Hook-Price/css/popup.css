@@ -39,3 +39,7 @@ body{
     padding: 5px 10px;
     
 }
+
+.sh_t_cont.border{
+    border: 1px solid white;
+}

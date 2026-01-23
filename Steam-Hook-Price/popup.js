@@ -63,6 +63,7 @@ async function start() {
 function local_server(){
     try{
         const container_server = document.createElement('div');
+        container_server.id = 'server-cont';
         container_server.classList.add('sh_t_cont','border');
 
         let save;
@@ -90,8 +91,9 @@ function local_server(){
                             <button type='button' class='btns_json' id='status'></button>
 
         `;
-
+        if(document.getElementById('server-cont')) return;
         document.body.append(container_server);
+
         const status = document.getElementById('status');
         chrome.storage.sync.get(['status'],(data)=>{
             if(data.status=='on'){

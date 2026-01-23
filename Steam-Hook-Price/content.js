@@ -47,7 +47,8 @@ window.addEventListener('message',(event)=>{
                 timestamp,
                 date: new Date(timestamp)
             }
-            if (price_sell && price_order > 0){
+            console.log(data_send);
+            if (price_sell>0){
                 new SM(data_send, "itemordershistogram").send();
                 new Alertik(data_send).create();
             }
@@ -85,17 +86,33 @@ class SM{
         this.type = type;
     }
     send(){
-       
-        chrome.runtime.sendMessage({
+       try{
+         chrome.runtime.sendMessage({
             type:this.type,
             data: this.data
-    });
+        });
+       }catch(err){
+        console.log('SM: ',(err));
+       }
+       
     return;
     }
 }
 
 
-document.addEventListener('DOMContentLoaded',()=>{
+document.addEventListener('DOMContentLoaded',async ()=>{
+    const data = await getStorage(['status']);
     
-    new SM({},'send_server').send();
+    if (data.status === 'on'){
+        console.log(data);
+        new SM({},'send_server').send();
+    }
+    
 });
+
+async function getStorage(keys) {
+    return new Promise((resolve)=>{
+        chrome.storage.sync.get(keys,resolve);
+    });
+    
+}

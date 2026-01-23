@@ -49,8 +49,10 @@ class CreateAllItems{
 
                 info.innerHTML = `<span data-name='${el.key}' data-time='${el.date}' 
                 class='popup_main_info'> 
-                ${el.key} - ${el.price_sell}${el.currency}<br> 
-                ${el.date} ${el.price_order? `(Auto Buy: ${el.price_order}${el.currency})` : ''}
+                ${el.key}<br>
+                Price sell: ${el.price_sell}${el.currency}<br> 
+                ${el.price_order? `Auto Buy: ${el.price_order}${el.currency}` : ''}<br>
+                ${el.date} 
                 <br>
                 </span>
                 

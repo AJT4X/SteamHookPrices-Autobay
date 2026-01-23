@@ -65,7 +65,10 @@ async function send_server(){
                 body: JSON.stringify(alls)
         });
         console.log('Data send successfuly!');
-
+        if (!response.ok){
+            console.log('Hook: "server return error...or not working...');
+            return;
+        }
         chrome.storage.sync.set({last_send: now});
                 
         }catch(err){
@@ -98,6 +101,7 @@ chrome.runtime.onMessage.addListener((msg,sender, sendResponse)=>{
 
     }
     if (msg.type=='send_server'){
+        console.log(msg);
         send_server();
     }
    

@@ -44,14 +44,13 @@ class DB:
                 cursor = con.cursor()
                 for item in self.info:
                     key_from_db = item.get('key')
-                    item_id = item.get('item_id')
+                    item_id = item.get('item_id',0)
                     name_code = item.get('name_code','-')
-                    price_order = item.get('price_order','0')
-                    price_sell = item.get('price_sell','0')
+                    price_order = item.get('price_order',0)
+                    price_sell = item.get('price_sell',0)
                     timestamp = item.get('timestamp')
                     currency = item.get('currency')
                     data = item.get('date')
-                    
 
                     cursor.execute("""
                         INSERT INTO hook(
@@ -60,6 +59,8 @@ class DB:
                         )
                         VALUES(?,?,?,?,?,?,?,?)
                         ON CONFLICT(hook_key) DO UPDATE SET
+                        item_id = excluded.item_id,
+                        name_code = excluded.name_code,
                         price_order = excluded.price_order,
                         price_sell = excluded.price_sell,
                         timestamp = excluded.timestamp,
@@ -92,4 +93,4 @@ def start():
         return jsonify ({'status' : "error",'msg' : str(db_work)}),500
 
 if __name__ == '__main__':
-    app.run(port=5009,debug=True)
+    app.run(port=5009)

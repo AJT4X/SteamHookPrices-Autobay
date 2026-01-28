@@ -64,7 +64,8 @@ class DB:
                         price_order = excluded.price_order,
                         price_sell = excluded.price_sell,
                         timestamp = excluded.timestamp,
-                        data = excluded.data
+                        data = excluded.data,
+                        currency =  excluded.currency
                     """,(
                     key_from_db,
                     item_id,

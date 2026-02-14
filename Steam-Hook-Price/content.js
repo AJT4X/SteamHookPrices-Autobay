@@ -16,7 +16,7 @@ window.addEventListener('message',(event)=>{
 
             data_send = {
                 key: params.get('market_hash_name'),
-                price_sell: parseFloat(payload.lowest_price.replace(' ','')),
+                price_sell: payload.lowest_price ? parseFloat(payload.lowest_price.replace(' ','')) : 0,
                 currency : payload.lowest_price.at(-1),
                 timestamp,
                 date: new Date(timestamp)

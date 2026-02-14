@@ -59,13 +59,14 @@ class DB:
                         )
                         VALUES(?,?,?,?,?,?,?,?)
                         ON CONFLICT(hook_key) DO UPDATE SET
-                        item_id = excluded.item_id,
-                        name_code = excluded.name_code,
-                        price_order = excluded.price_order,
-                        price_sell = excluded.price_sell,
-                        timestamp = excluded.timestamp,
-                        data = excluded.data,
-                        currency =  excluded.currency
+                            item_id = excluded.item_id,
+                            name_code = excluded.name_code,
+                            price_order = excluded.price_order,
+                            price_sell = excluded.price_sell,
+                            timestamp = excluded.timestamp,
+                            data = excluded.data,
+                            currency =  excluded.currency
+                    WHERE excluded.timestamp > hook.timestamp
                     """,(
                     key_from_db,
                     item_id,

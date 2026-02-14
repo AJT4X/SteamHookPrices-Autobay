@@ -1,69 +1,84 @@
+import { price_check } from "./dopPopup/dop_js/price_item_check.js";
+
+
 document.addEventListener('DOMContentLoaded',()=>{
-    start()
+
+    start();
 });
 
 async function start() {
-    const tooday = new Date();
-    tooday.setHours(0,0,0,0);
-
-    const text_main_cont = document.createElement('div');
-    const dop_main_info = document.createElement('div');
-    const btns = document.createElement('div');
-
-    const steam_hook_text = document.createElement('span');
-    const btns_save_json_file = document.createElement('button');
-    const btns_viwers = document.createElement('button');
-    const server = document.createElement('button');
-
-    steam_hook_text.classList.add('sh_t');
-    text_main_cont.classList.add('sh_t_cont');
-
-    btns.classList.add('sh_t_cont','dop_btn');
-
-    btns_save_json_file.classList.add('btns_json');
-    btns_viwers.classList.add('btns_json');
-    server.classList.add('btns_json');
-
     
+    try{
+        const tooday = new Date();
+        tooday.setHours(0,0,0,0);
+        
+        const text_main_cont = document.createElement('div');
+        const dop_main_info = document.createElement('div');
+        const btns = document.createElement('div');
 
-    let db_data;
-    
-    db_data = await sendMessageAsync({
-        type: 'db_get_all',
-    });
-    
-    
-    let length_tooday = db_data.data
-        .filter(row=> row.timestamp >= tooday.getTime());
+        const steam_hook_text = document.createElement('span');
+        const btns_save_json_file = document.createElement('button');
+        const btns_viwers = document.createElement('button');
+        const server = document.createElement('button');
+        const find_price = document.createElement('button');
 
-    console.log(db_data.data.length);
-    console.log(length_tooday.length);
+        steam_hook_text.classList.add('sh_t');
+        text_main_cont.classList.add('sh_t_cont');
+        btns.classList.add('sh_t_cont','dop_btn');
+        
 
-    steam_hook_text.innerText = 'STEAM HOOK';
-    dop_main_info.innerHTML =`
-    <div class="sh_t_cont dop_style"><span class="sh_t">All items: ${db_data.data.length} pcs
-     | Tooday hooks: ${length_tooday.length} pcs</span></div>
-    `;
-    btns_save_json_file.innerText = '📥';
-    btns_viwers.innerText = '👁️';
-    server.innerText = '📶';
+        btns_save_json_file.classList.add('btns_json');
+        btns_viwers.classList.add('btns_json');
+        server.classList.add('btns_json');
+        find_price.classList.add('btns_json');
 
-    btns_save_json_file.type = 'button';
-    btns_viwers.type = 'button';
-    server.type = 'button';
-    
-    btns_save_json_file.addEventListener("click",()=>save_file(db_data));
-    btns_viwers.addEventListener("click",()=>big_window());
-    server.addEventListener('click',()=>local_server(db_data));
-    btns.append(btns_save_json_file,btns_viwers,server);
-    text_main_cont.append(steam_hook_text);
-    document.body.append(text_main_cont,dop_main_info,btns);
+        
+        console.log('db');
+        let db_data;
+        
+        db_data = await sendMessageAsync({
+            type: 'db_get_all',
+        });
+        
+        console.log(db_data);
+        let length_tooday = db_data.data
+            .filter(row=> row.timestamp >= tooday.getTime());
+
+        console.log(db_data.data.length);
+        console.log(length_tooday.length);
+
+        steam_hook_text.innerText = 'STEAM HOOK';
+        dop_main_info.innerHTML =`
+        <div class="sh_t_cont dop_style"><span class="sh_t">All items: ${db_data.data.length} pcs
+        | Tooday hooks: ${length_tooday.length} pcs</span></div>
+        `;
+        btns_save_json_file.innerText = '📥';
+        btns_viwers.innerText = '👁️';
+        server.innerText = '📶';
+        find_price.innerText = '🔎';
+
+        btns_save_json_file.type = 'button';
+        btns_viwers.type = 'button';
+        server.type = 'button';
+        find_price.type = 'button';
+        
+        btns_save_json_file.addEventListener("click",()=>save_file(db_data));
+        btns_viwers.addEventListener("click",()=>big_window());
+        server.addEventListener('click',()=>local_server(db_data));
+        find_price.addEventListener('click',()=>price_check());
+
+        btns.append(btns_save_json_file,btns_viwers,server,find_price);
+        text_main_cont.append(steam_hook_text);
+        document.body.append(text_main_cont,dop_main_info,btns);
+    }catch (err){
+        console.log('PopUpStart',e);
+    }
 }
 
 function local_server(){
     try{
         const container_server = document.createElement('div');
-        container_server.id = 'server-cont';
+        container_server.id = 'serverCont';
         container_server.classList.add('sh_t_cont','border');
 
         let save;
@@ -137,7 +152,7 @@ function local_server(){
 
 function big_window(){
     chrome.windows.create({
-        url: "dop_window.html",
+        url: "dopPopup/dop_window.html",
         type: 'popup',
         width: 600,
         height: 400
@@ -167,6 +182,7 @@ async function save_file(db_data){
    
 }
 function sendMessageAsync(msg){
+    
     return new Promise((resolve, reject)=>{
         chrome.runtime.sendMessage(msg,(response)=>{
             if(chrome.runtime.lastError) reject(chrome.runtime.lastError);

@@ -2,21 +2,18 @@ body{
     background-color: black;
     width: 500px;
     height: 250px;
-    
 }
 
 .sh_t{
-    
     color: white;
     font-size: 20px;
     font-family: serif;
     font-weight: bold;
-    
-    
 }
 .sh_t_cont{
     text-align: center;
-    justify-content: center; 
+    justify-content: center;
+
 }
 .sh_t_cont.dop_style{
     gap:30px;
@@ -27,7 +24,9 @@ body{
     margin-top: 15px;
     gap: 10px;
     display: flex;
+    flex-wrap: wrap;
 }
+
 
 .btns_json{
     color: white;

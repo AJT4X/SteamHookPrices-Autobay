@@ -1,0 +1,28 @@
+body{
+    background-color: black;
+}
+
+.main_div_price_check{
+    
+    justify-content: center;
+    display: flex;
+    
+}
+button{
+    background-color: black;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+
+
+.currency_select {
+    background-color: #1e1e1e;  /* тёмный фон */
+    color: #ffffff;             /* БЕЛЫЙ текст */
+    border: 1px solid #555;
+}
+
+.price_info_style{
+    justify-content: center;
+    display: flex;
+}

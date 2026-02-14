@@ -1,5 +1,7 @@
 importScripts('dexie.js');
+
 const db = new Dexie("SteamMarketDB");
+
 db.version(1).stores({
 
     items_info:`
@@ -12,7 +14,6 @@ db.version(1).stores({
         timestamp
         
     `
-    
 
 });
 
@@ -20,6 +21,7 @@ let ms;
 let last_send;
 
 async function all_db() {
+    
     return await db.items_info.toArray();
 }
 
@@ -87,6 +89,7 @@ async function getStorage(keys) {
 }
 
 chrome.runtime.onMessage.addListener((msg,sender, sendResponse)=>{
+    
     if (msg.type == 'itemordershistogram' || 
         msg.type == 'priceoverview'){
         savePrice(msg.data)
@@ -94,14 +97,14 @@ chrome.runtime.onMessage.addListener((msg,sender, sendResponse)=>{
             .catch(err=> sendResponse({ok: false, error: err}));
     }
     if(msg.type=='db_get_all'){
-       
+        console.log(msg.type);
         all_db()
         .then(data=> sendResponse({ok: true, data}))
         .catch(err=> sendResponse({ok: false, error: err}))
 
     }
     if (msg.type=='send_server'){
-        console.log(msg);
+        
         send_server();
     }
    

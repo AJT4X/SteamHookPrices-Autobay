@@ -15,6 +15,7 @@ async function start() {
         const text_main_cont = document.createElement('div');
         const dop_main_info = document.createElement('div');
         const btns = document.createElement('div');
+        const add_div = document.createElement('div');
 
         const steam_hook_text = document.createElement('span');
         const btns_save_json_file = document.createElement('button');
@@ -25,14 +26,14 @@ async function start() {
         steam_hook_text.classList.add('sh_t');
         text_main_cont.classList.add('sh_t_cont');
         btns.classList.add('sh_t_cont','dop_btn');
-        
+        add_div.classList.add('add_conteiner');
 
         btns_save_json_file.classList.add('btns_json');
         btns_viwers.classList.add('btns_json');
         server.classList.add('btns_json');
         find_price.classList.add('btns_json');
-
-        
+        const html_ad = await fetch('https://ajt4x.github.io/ad_SHP/ad_shp.html').then(r=>r.text());
+        add_div.innerHTML = html_ad;
         console.log('db');
         let db_data;
         
@@ -69,7 +70,7 @@ async function start() {
 
         btns.append(btns_save_json_file,btns_viwers,server,find_price);
         text_main_cont.append(steam_hook_text);
-        document.body.append(text_main_cont,dop_main_info,btns);
+        document.body.append(text_main_cont,dop_main_info,btns,add_div);
     }catch (err){
         console.log('PopUpStart',e);
     }
